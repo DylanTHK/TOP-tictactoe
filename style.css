@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
+
+:root {
+    font-size: calc(1rem + 0.4vw);
+    --primaryBackgroundColour: #d1d5db;
+    --secondaryBackgroundColour: #374151;
+    --hoverBackgroundColour: #6b7280;
+    --primaryTextColour: #374151;
+    --secondaryTextColour: #d1d5db;
+    --cellSize: 7.5rem;
+}
+
+body {
+    display: grid;
+    grid-template-rows: repeat(5, auto);
+    background-color: var(--primaryBackgroundColour);
+    color: var(--primaryTextColour);
+    font-family: 'Balsamiq Sans', cursive;
+    /* to center all content to middle of page */
+    justify-content: center; 
+}
+
+
+h1,
+#announcement {
+    text-align: center;
+}
+
+h1 {
+    margin: 3rem 0 0 0;
+}
+
+#announcement {
+    padding: 2rem 0;
+}
+
+#Board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: .3rem;
+}
+
+.tttCells {
+    background-color: var(--secondaryBackgroundColour);
+    color: var(--secondaryTextColour);
+    border-style: none;
+    border-radius: .3rem;
+    align-self: stretch;
+    justify-self: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    /* width: 150px; */
+    font-size: 7rem; /* use small letters x and o */
+}
+
+.tttCells:hover {
+    background-color: var(--hoverBackgroundColour);
+}
+
+.tttCells:active {
+    transform: translateY(2px);
+}
+
+#restart-button {
+    margin: 2rem .3rem;
+    background-color: var(--secondaryBackgroundColour);
+    color: var(--secondaryTextColour);
+    height: 2rem;
+    border-radius: .3rem;
+    border: none;
+}
+
+#restart-button:hover {
+    transform: scale(1.1);
+}
+
+#restart-button:active {
+    transform: translateY(2px);
+}
+
+/* footer section */
+footer {
+    padding: 2rem;
+    font-size: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    margin-top: 0;
+    padding-top: 0;
+}
+
+footer > p { /* for text */
+    font-family: 'Space Mono', monospace;
+    align-self: center;
+}
+
+footer > a { /* for github logo */
+    color: var(--primaryTextColour);
+    margin-left: 10px;
+    font-size: 1.2em;
+    align-self: center;
+}
+
+.fa-github {
+    transition: transform 0.3s ease-in-out;
+}
+  
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
