@@ -1,4 +1,4 @@
-// factory function for player
+// factory function to create players
 const players = (marker) => {
     const getMarker = () => {
         return marker;
@@ -29,12 +29,23 @@ const gameBoard = (() => {
 
 // module to update display
 const updateDisplay = (() => {
-    const gBoard = document.getElementById("Board");
     const announcements = document.getElementById("announcement");
-    const cells = document.getElementsByClassName("tttCells");
+    const cells = document.querySelectorAll(".tttCells");
+    const restartButton = document.querySelector("#restart-button");
     
     // adding event listener for each grid cell
-    
+    cells.forEach((cell) => 
+        cell.addEventListener("click", (e) => {
+            let marker = gameController.currentMarker();
+            let index = e.target.getAttribute("cell-index");
+            e.target.textContent = marker;
+            gameBoard.updateArray(marker, index);
+    }))
+
+    // event listener for restarting game
+    restartButton.addEventListener("click", () => {
+        gameBoard.resetArray();
+    });
     
     // function to place marker on cell
     const updateBoard = (marker, cell) => {
@@ -47,20 +58,35 @@ const updateDisplay = (() => {
         announcements.textContent = message;
     }
     
-    return {cells, displayBoard, updateBoard, updateMessage};
+    return {cells, updateBoard, updateMessage};
 })();
 
 const gameController = (() => {
     const playerX = players("x");
     const playerO = players("o");
-    const currentMarker = "x";
     
-    updateDisplay.displayBoard(gameBoard.boardArray);
+    let round = 1;
+    let roundOver = false;
+
+    // to get 
+    let currentMarker = () => {
+        return (round % 2 == 0) ? playerO.getMarker() : playerX.getMarker();
+    }
+
+    const playRound = () => {
+        if(round < 9) {
+            round++
+        }
+    }
+
+    const resetGame = () => {
+        return
+    }
 
     // Logic for winning
 
     //
-    return {};
+    return {currentMarker, round, playerO};
 })();
 
 
