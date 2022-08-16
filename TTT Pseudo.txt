@@ -1,0 +1,26 @@
+1. initialise variables 
+    - curretMarker = 'X',
+    - gameOver = false, 
+    - rounds = 0
+    - gameBoard = [9 x cells]
+
+2. Player select TTT cell
+
+3. Update gameArray (1D Array) based on selected cell index with currentMarker
+
+4. Update gameBoard (Interactive Display) selected cell with currentMarker
+
+5. Obtain indexArray of all index of current Player's markers
+
+6. Check indexArray with winConditions Array
+    - if 1 win Conditions array is found in indexArray end the game
+
+7. Check rounds, if rounds >= 9, end the game
+
+8. update Announcement text
+    - if game has not ended, update next player's turn
+    - if game ended, update winner or status
+
+9. if game has not ended, change player (currentMarker)
+
+
