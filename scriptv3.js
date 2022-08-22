@@ -1,6 +1,6 @@
 // module to control flow of overall game
 const gameController = (() => {
-    
+
     // 1. initialise public variables 
     let currentMarker = "x";
     let round = 0;
@@ -125,4 +125,12 @@ const gameController = (() => {
 
     // making variables public
     return {updateBoardArray, updateGameBoard, indexArray, winLogic, updateAnnouncement, changePlayer};
+})();
+
+const gameBoard = (() => {
+
+})();
+
+const displayController = (() => {
+    
 })();
