@@ -122,7 +122,7 @@ const displayController = (() => {
     // 7. update Announcement text (Win / Lose / Draw / Continue)
     const updateAnnouncement = () => {
         // Draw Condition
-        if (!gameController.getState & gameController.getRound() > 9) {
+        if (!gameController.getState() & gameController.getRound() > 9) {
             announcement.textContent = "It's a Draw!";
         } else if (gameController.getState()) { // win condition
             announcement.textContent = 
