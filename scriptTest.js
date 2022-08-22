@@ -1,32 +1,16 @@
-const winConditions = [
-    [0, 1, 2], 
-    [3, 4, 5], 
-    [6, 7, 8], 
-    [0, 3, 6], 
-    [1, 4, 7], 
-    [2, 5, 8], 
-    [0, 4, 8], 
-    [2, 4, 6]
-];
+round = 2;
 
-let currentMarker = "x";
-let boardArray = ['x', 'x', 'x', '', '', '', '', '', '']
-
-const indexArray = () => {
-    let tempArray = [];
-    for (let i = 0; i < boardArray.length; i++) {
-        if (boardArray[i] === currentMarker) {
-            tempArray.push(i);
-        }
-    }
-    return tempArray;
+const Player = (marker) => {
+    this.marker = marker;
+    // function to obtain the marker of player
+    const getMarker = () => marker;
+    return {getMarker}
 };
 
-// goal: return a true when winCondition is found in indexArray
-const gameOutCome = winConditions.some(condition => {
-    return condition.every(el => {
-        return indexArray().includes(el); 
-    })
-});
+const playerX = Player("x");
+const playerO = Player("o");
 
-
+// function to determine currentMarker based on round
+let currentMarker = () => {
+    return (round & 2 === 0) ? playerO.getMarker() : playerX.getMarker();
+};

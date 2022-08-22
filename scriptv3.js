@@ -126,11 +126,3 @@ const gameController = (() => {
     // making variables public
     return {updateBoardArray, updateGameBoard, indexArray, winLogic, updateAnnouncement, changePlayer};
 })();
-
-const gameBoard = (() => {
-
-})();
-
-const displayController = (() => {
-    
-})();
