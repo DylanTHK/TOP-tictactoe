@@ -1,5 +1,5 @@
 1. initialise variables 
-    - curretMarker = 'X',
+    - currentMarker = 'X',
     - gameOver = false, 
     - rounds = 0
     - gameBoard = [9 x cells]

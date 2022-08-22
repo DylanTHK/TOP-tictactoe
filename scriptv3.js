@@ -1,5 +1,3 @@
-// initialise variables (currenPlayer = 'X', gameOver = false, rounds = 0)
-
 // module to control flow of overall game
 const gameController = (() => {
     
@@ -21,13 +19,13 @@ const gameController = (() => {
     
     // to link with event listeners
     const restartButton = document.querySelector("#restart-button");
-    const announcements = document.querySelector("#announcement");
+    const announcement = document.querySelector("#announcement");
     const cells = document.querySelectorAll(".tttCells");
 
     // 2a. Player select TTT cell -> link to playRound
     cells.forEach((cell) => {
         cell.addEventListener("click", (e) => {
-            playRound(e)
+            if (!gameOver) playRound(e);
         })
     })
 
@@ -40,23 +38,9 @@ const gameController = (() => {
         round = 0;
         gameOver = false;
         boardArray = ["", "", "", "", "", "", "", "", ""];
-        announcements.textContent = "Welcome!! X starts First";
+        announcement.textContent = "Welcome!! X starts First";
         updateGameBoard(event);
     }
-
-    // ***** function to facilitate game play (1 round) *****//
-    const playRound = (event) => {
-        // update game board (Array)
-        updateBoardArray(event);
-        // update board display 
-        updateGameBoard(event);
-        
-        console.log(`round: ${round}`);
-        console.log(indexArray());
-
-        // change players
-        changePlayer();
-    };
 
     // 3. Update gameArray (1D Array) based on selected cell index with currentMarker
     const updateBoardArray = (event) => {
@@ -78,7 +62,7 @@ const gameController = (() => {
     };
 
     // 5. Obtain array of all currentMarker's positions
-    const indexArray = () => {
+    let indexArray = () => {
         let tempArray = [];
         for (let i = 0; i < boardArray.length; i++) {
             if (boardArray[i] === currentMarker) {
@@ -88,41 +72,57 @@ const gameController = (() => {
         return tempArray;
     };
 
-    // 6. Check indexArray with winConditions Array
-    //     - if 1 win Conditions array is found in indexArray end the game
-
+    // 6. Check indexArray with winConditions Array (updates gameOver status)
+    const winLogic = () => {
+        // option 1 
+        const gameOutCome = winConditions.some(condition => {
+            return condition.every(el => {
+                return indexArray().includes(el); //
+            })
+        });
+        // updates status of the game
+        if (gameOutCome || round > 9) {
+            gameOver = true;
+        }
+    };
 
     // 7. update Announcement text (Win / Lose / Draw / Continue)
-    //     - check gameOver status and check rounds, if rounds >= 9, end the game
-    //     - if game has not ended, update next player's turn
-    //     - if game ended, update winner or status
+    const updateAnnouncement = () => {
+        if (gameOver){ // check gameOver status check rounds, if rounds >= 9, end the game
+            announcement.textContent = `Congrats! Player ${currentMarker.toUpperCase()} has won!`;
+        }  else if (round >= 9){ // check rounds, if rounds >= 9, end the game
+            announcement.textContent = "It's a Draw!";
+        } else if (currentMarker === "x"){ // if game has not ended, update next player's turn
+            announcement.textContent = "Player O's Turn";
+        } else {
+            announcement.textContent = "Players X's Turn";
+        }
+    };
 
     // 8. if game has not ended, change player(if gameOver is false, change player else nothing)
     const changePlayer = () => {
         currentMarker === "x" ? currentMarker = "o" : currentMarker = "x";
     };
 
+    // ***** function to facilitate game play (1 round) *****//
+    const playRound = (event) => {
+        // 3. update game board (Array)
+        updateBoardArray(event);
+        // 4. update board display 
+        updateGameBoard(event);
+        
+        console.log(`round: ${round}`);
+        console.log(indexArray());
+        winLogic();
+        // change players
+        updateAnnouncement();
+        changePlayer();
+
+        if (gameOver) {
+            console.log("GAMEOVER");
+        }
+    };
+
     // making variables public
-    return {currentMarker, round, gameOver, boardArray, indexArray};
-
+    return {updateBoardArray, updateGameBoard, indexArray, winLogic, updateAnnouncement, changePlayer};
 })();
-
-
-// execute procedure for 1 full round
-const playRound = (() => {
-    
-    return;
-
-})();
-
-
-
-
-
-
-
-
-
-
-
-
